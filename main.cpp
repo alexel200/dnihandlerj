@@ -44,19 +44,58 @@ bool checkDni(string &dni){
     }
     return isDniCorrect;
 }
+bool check_date(string date_str) {
+    bool isValidDate = true;
+    try {
+        // Check if the string has the correct length
+        if (date_str.length() != 10) {
+            //throw invalid_argument("Invalid date format. Must be dd/mm/yyyy.");
+            isValidDate = false;
+        }
 
+        // Check if the string has the correct format
+        if (date_str[2] != '/' || date_str[5] != '/') {
+            //throw invalid_argument("Invalid date format. Must be dd/mm/yyyy.");
+            isValidDate = false;
+        }
+
+        // Extract the day, month, and year from the string
+        int day = stoi(date_str.substr(0, 2));
+        int month = stoi(date_str.substr(3, 2));
+        int year = stoi(date_str.substr(6, 4));
+
+        // Check if the day is valid
+        if (day < 1 || day > 31) {
+            //throw invalid_argument("Invalid day. Must be between 1 and 31.");
+            isValidDate = false;
+        }
+
+        // Check if the month is valid
+        if (month < 1 || month > 12) {
+            //throw invalid_argument("Invalid month. Must be between 1 and 12.");
+            isValidDate = false;
+        }
+
+        // Check if the year is valid
+        if (year < 1900 || year > 2100) {
+            //throw invalid_argument("Invalid year. Must be between 1900 and 2100.");
+            isValidDate = false;
+        }
+
+        // If we get here, the date is valid
+        return isValidDate;
+    } catch (invalid_argument& e) {
+        // Log the error message and re-throw the exception
+        cerr << "Error: " << e.what() << endl;
+        throw e;
+    }
+}
 bool checkDate(string &date, bool isExpireDate){
     bool isValidDate = true;
     if(isExpireDate && date == "never"){
         return true;
     }
-    struct tm tm;
-
-    if (!strptime(date.c_str(), "%d/%m/%Y", &tm)){
-        isValidDate = false;
-    }
-    cout<<strptime(date.c_str(), "%d/%m/%Y", &tm);
-    return isValidDate;
+    return check_date( date);
 }
 
 bool lookIfDniExist(std::vector<std::vector<string>> &success, const string &dni){
