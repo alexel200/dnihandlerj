@@ -1,0 +1,3 @@
+/Users/alexel200/Documents/proyectos/C++/dnihandler/cmake-build-debug/CMakeFiles/dnihandler.dir
+/Users/alexel200/Documents/proyectos/C++/dnihandler/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/alexel200/Documents/proyectos/C++/dnihandler/cmake-build-debug/CMakeFiles/rebuild_cache.dir
